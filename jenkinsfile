@@ -12,7 +12,7 @@ pipeline {
        steps {
        sh "cd /mnt"
         sh "mvn clean install" 
-        sh "mv /webapp/target/WebApp.war /mnt"
+        sh "mv /mnt/webapp/target/WebApp.war /mnt"
        }
        }
        stage('deploy')
