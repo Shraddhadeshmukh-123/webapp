@@ -13,7 +13,7 @@ pipeline {
        steps {
        sh "cd /mnt"
         sh "mvn clean install" 
-        sh "cp /mnt/webapp/target/WebApp.war /mnt"
+        sh "cp /root/.jenkins/workspace/jenkins-file-from-github/target/WebApp.war /mnt"
        }
        }
        stage('deploy')
