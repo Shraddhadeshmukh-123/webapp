@@ -20,9 +20,7 @@ pipeline {
         steps {
         sshagent(['jenkins-key']) {
        sh """
-       cp WebApp.war /mnt/apache-tomcat-9.0.70/webapps
-       ssh ec2-user@172.31.43.115 /mnt/apache-tomcat-9.0.70/bin/shutdown.sh
-       ssh ec2-user@172.31.43.115 /mnt/apache-tomcat-9.0.70/bin/startup.sh
+       cp /mnt/WebApp.war /mnt/apache-tomcat-9.0.70/webapps
        """
 }
      
