@@ -5,7 +5,7 @@ pipeline {
         stage('git') {
             steps {
                 echo 'Hello World'
-                sh "cd /mnt"
+               git credentialsId: 'jenkins-key', url: 'https://github.com/Shraddhadeshmukh-123/webapp.git'
                 sh "git clone https://github.com/Shraddhadeshmukh-123/webapp.git"
             }
         }
