@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git') {
+            steps {
+                echo 'Hello World'
+                git credentialsId: 'jenkins-key', url: 'https://github.com/Shraddhadeshmukh-123/webapp.git'
+            }
+        }
+    }
+}
