@@ -10,8 +10,9 @@ pipeline {
         }
        stage('build') {
        steps {
+       sh "cd /mnt"
         sh "mvn clean install" 
-        sh "mv target/WebApp.war target/myweb.war"
+        sh "mv /webapp/target/WebApp.war /mnt"
        }
        }
        stage('deploy')
@@ -19,7 +20,7 @@ pipeline {
         steps {
         sshagent(['jenkins-key']) {
        sh """
-       scp -o ctHostKeyChecking=no target/myweb.war ec2-user@172.31.43.115:/mnt/apache-tomcat-9.0.70/webapps
+       cp WebApp.war /mnt/apache-tomcat-9.0.70/webapps
        ssh ec2-user@172.31.43.115 /mnt/apache-tomcat-9.0.70/bin/shutdown.sh
        ssh ec2-user@172.31.43.115 /mnt/apache-tomcat-9.0.70/bin/startup.sh
        """
