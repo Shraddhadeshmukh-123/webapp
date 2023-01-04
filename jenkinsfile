@@ -7,7 +7,7 @@ pipeline {
         stage('git') {
             steps {
                 echo 'Hello World'
-               sh "git clone https://github.com/Shraddhadeshmukh-123/webapp.git"
+                git credentialsId: 'jenkins-key', url: 'https://github.com/Shraddhadeshmukh-123/webapp.git'
             }
         }
        stage('build') {
