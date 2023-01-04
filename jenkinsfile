@@ -8,5 +8,10 @@ pipeline {
                 git credentialsId: 'jenkins-key', url: 'https://github.com/Shraddhadeshmukh-123/webapp.git'
             }
         }
+       stage('build') {
+       steps {
+       mvn clean install 
+       }
+       }
     }
 }
