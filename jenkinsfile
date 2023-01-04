@@ -1,11 +1,13 @@
 pipeline {
     agent any
-
+   triggers {
+        cron('* * * * *')
+    }
     stages {
         stage('git') {
             steps {
                 echo 'Hello World'
-               git credentialsId: 'jenkins-key', url: 'https://github.com/Shraddhadeshmukh-123/webapp.git'
+               sh "git clone https://github.com/Shraddhadeshmukh-123/webapp.git"
             }
         }
        stage('build') {
