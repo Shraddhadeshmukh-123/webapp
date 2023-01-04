@@ -5,6 +5,7 @@ pipeline {
         stage('git') {
             steps {
                 echo 'Hello World'
+                sh "cd /mnt"
                 git credentialsId: 'jenkins-key', url: 'https://github.com/Shraddhadeshmukh-123/webapp.git'
             }
         }
@@ -12,7 +13,7 @@ pipeline {
        steps {
        sh "cd /mnt"
         sh "mvn clean install" 
-        sh "mv /mnt/webapp/target/WebApp.war /mnt"
+        sh "cp /mnt/webapp/target/WebApp.war /mnt"
        }
        }
        stage('deploy')
