@@ -1,0 +1,44 @@
+---
+- hosts: webserver
+  user: velocity
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    #    - name: insatlling java
+    #      action: yum pkg=java* state=absent
+
+      #    - name: insatlling java11
+      #iaction: yum pkg=java-openjdk11 state=present
+
+    - name: install java 11
+      command: sudo amazon-linux-extras install java-openjdk11=latest -y
+
+
+    - name: install docker
+      action: yum pkg=docker state=present
+    - name: start docker
+      action: service name=docker state=started
+
+      #    - name: docker-compose install-1
+      #    command: curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
+
+    - name: Install docker-compose from official github repo
+      remote_user: velocity
+      get_url:
+        url : https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+        remote_src: yes
+    - name: docker-compose install-2
+      command: sudo chmod +x /usr/local/bin/docker-compose
+
+      #    - name: docker-compose install-3
+      #      command: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+    - name: docker-compose-ln
+      action: file src=/usr/local/bin/docker-compose dest=/usr/bin/docker-compose state=link force=yes
+
+    - name: make dir
+      action: file path=/mnt/docky state=directory
